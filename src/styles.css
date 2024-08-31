@@ -1,0 +1,310 @@
+body { 
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1b1e3c; /* Dark background color */
+    color: #fff; /* Default text color */
+    overflow: hidden; /* Disable scrolling */
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.layout-container {
+    display: grid;
+    grid-template-columns: 60% 40%; /* Adjust the grid to accommodate stream and right panel */
+    grid-template-rows: auto 1fr; /* Rows for flexible height */
+    gap: 20px;
+    padding: 20px;
+    height: calc(100vh - 60px); /* Adjust height considering the header */
+    width: 100vw; /* Full width for responsiveness */
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.machine-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.machine-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.machine-box:hover {
+    transform: translateY(-5px);
+}
+
+.machine-box img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.status {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.status.online {
+    color: green;
+}
+
+.status.offline {
+    color: red;
+}
+
+#control-page {
+    text-align: center;
+}
+
+.stream-container {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b1e3c; /* Match your theme color */
+    height: 85vh; /* Fixed height */
+    width: 60vh; /* Adjust width for vertical frame */
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden; /* Ensures video stays within the rounded corners */
+    padding: 0; /* Remove any padding */
+    margin: 0; /* Remove any margin */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.rules-container {
+    grid-row: 1;
+    grid-column: 2;
+    background-color: #e0e0e0;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in element's width and height */
+}
+
+.video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: inherit; /* Inherit the border radius from the container */
+    display: block; /* Ensure the video is displayed as a block element */
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.control-btn {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.control-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.drop-btn {
+    background-color: #28a745;
+}
+
+.drop-btn:hover {
+    background-color: #218838;
+}
+
+#timer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.hidden {
+    display: none;
+}
+
+.loading {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.joystick-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.joystick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.horizontal-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.joystick-button {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    margin: 10px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.joystick-button.drop-button {
+    background-color: red;
+    width: 80px;
+    height: 80px;
+}
+
+.joystick-button:active {
+    background-color: #d9d9d9;
+}
+
+
+.control-panel {
+    display: flex;
+    justify-content: flex-start; /* Align elements to the left */
+    align-items: center; /* Vertically center the content */
+    max-width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.joystick-container {
+    grid-row: 2;
+    grid-column: 2;
+    background-color: #e0e0e0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .layout-container {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto auto; /* Adjust rows for single column */
+        height: auto;
+    }
+
+    .rules-container, .joystick-container {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    .joystick-button {
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .joystick-button.drop-button {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+.control-panel-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 80vh;
+    padding: 20px;
+    margin-left: 20px;
+    background-color: #2d3159;
+    border-radius: 10px;
+}
+
+.play-button {
+    background-color: #8d40e5;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.play-button:active {
+    background-color: #7338c0;
+}
+
+.loading-animation {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1b1e3c; /* Match your theme color */
+    color: #ffffff;
+    font-size: 24px;
+    animation: fade-in 1s infinite alternate; /* Simple loading animation */
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -22,19 +22,19 @@ const sendCommandToArduino = (command, res, successMessage) => {
 };
 
 // Define endpoints for controlling the claw machine
-app.get('/start-left', (req, res) => sendCommandToArduino('start-left', res, 'Moving left'));
-app.get('/stop-left', (req, res) => sendCommandToArduino('stop-left', res, 'Stopping left movement'));
+app.get('/arduino/start-left', (req, res) => sendCommandToArduino('start-left', res, 'Moving left'));
+app.get('/arduino/stop-left', (req, res) => sendCommandToArduino('stop-left', res, 'Stopping left movement'));
 
-app.get('/start-right', (req, res) => sendCommandToArduino('start-right', res, 'Moving right'));
-app.get('/stop-right', (req, res) => sendCommandToArduino('stop-right', res, 'Stopping right movement'));
+app.get('/arduino/start-right', (req, res) => sendCommandToArduino('start-right', res, 'Moving right'));
+app.get('/arduino/stop-right', (req, res) => sendCommandToArduino('stop-right', res, 'Stopping right movement'));
 
-app.get('/start-fwd', (req, res) => sendCommandToArduino('start-fwd', res, 'Moving up'));
-app.get('/stop-fwd', (req, res) => sendCommandToArduino('stop-fwd', res, 'Stopping up movement'));
+app.get('/arduino/start-fwd', (req, res) => sendCommandToArduino('start-fwd', res, 'Moving up'));
+app.get('/arduino/stop-fwd', (req, res) => sendCommandToArduino('stop-fwd', res, 'Stopping up movement'));
 
-app.get('/start-back', (req, res) => sendCommandToArduino('start-back', res, 'Moving down'));
-app.get('/stop-back', (req, res) => sendCommandToArduino('stop-back', res, 'Stopping down movement'));
+app.get('/arduino/start-back', (req, res) => sendCommandToArduino('start-back', res, 'Moving down'));
+app.get('/arduino/stop-back', (req, res) => sendCommandToArduino('stop-back', res, 'Stopping down movement'));
 
-app.get('/drop', (req, res) => sendCommandToArduino('drop', res, 'dropping claw'));
+app.get('/arduino/drop', (req, res) => sendCommandToArduino('drop', res, 'dropping claw'));
 
 // Start the Express server
 app.listen(port, () => {

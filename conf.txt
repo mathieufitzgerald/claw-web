@@ -1,0 +1,57 @@
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout  65;
+
+    # Redirect HTTP traffic to HTTPS
+    server {
+        listen 8081;
+        server_name claw.matfit.ch;
+
+        # Redirect all HTTP to HTTPS
+        return 301 https://$host:8443$request_uri;
+    }
+
+    # HTTPS server configuration
+    server {
+        listen 8443 ssl;
+        server_name claw.matfit.ch;
+
+        # SSL certificate and key
+        ssl_certificate /Users/mathieufitzgerald/Downloads/claw.matfit.ch/cert.crt; # Replace with your SSL cert path
+        ssl_certificate_key /Users/mathieufitzgerald/Downloads/claw.matfit.ch/private.key; # Replace with your SSL key path
+
+        ssl_session_cache shared:SSL:1m;
+        ssl_session_timeout 5m;
+
+        ssl_ciphers HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # Proxy Broadcast Box Stream (UDP over HTTP)
+        location /api/whep {
+            proxy_pass http://127.0.0.1:8080; # Your Broadcast Box service
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Proxy Arduino Control (Node server)
+        location /arduino/ {
+            proxy_pass http://127.0.0.1:4000; # Your Node server controlling the Arduino
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
+
